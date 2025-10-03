@@ -48,7 +48,7 @@
       padding: 0 1rem;
     }
     .section {
-      padding: 3rem 0;
+      padding: 2.5rem 0;
     }
     @media (min-width: 768px) {
       .section { padding: 5rem 0 }
@@ -135,23 +135,18 @@
       overflow: clip;
       background: #e9e3df;
     }
-    .hero::before {
-      /* High-quality fashion/bridal background placeholder (replace with real image) */
-      content: "";
+    .hero::before { content: none !important; }
+
+    .hero img.hero-img {
       position: absolute;
       inset: 0;
-      background-image: url("/placeholder.svg?height=1200&width=1800");
-      background-size: cover;
-      background-position: center;
-      filter: contrast(0.9) saturate(1) brightness(0.95);
-      opacity: 0.5;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(0.95) saturate(1) brightness(0.95);
+      z-index: 0;
     }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(251, 250, 249, 0.66); /* soft veil */
-    }
+
     .hero-inner {
       position: relative;
       z-index: 1;
@@ -194,9 +189,13 @@
     .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(0,0,0,0.12) }
     .card img {
       width: 100%;
-      height: 260px;
+      height: auto;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
       display: block;
+    }
+    @media (min-width: 768px) {
+      .card img { aspect-ratio: 16 / 10 }
     }
     .card-body {
       padding: 1rem;
@@ -332,13 +331,88 @@
       .hero-inner, .reveal { animation: none }
       .btn:hover, .card:hover { transform: none }
     }
+
+    /* Mobile-first navigation */
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 40px;
+      width: 44px; /* finger-friendly target */
+      border-radius: 0.5rem;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: var(--c-surface);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+    }
+    .menu-toggle:hover { box-shadow: var(--shadow-md) }
+    .menu-toggle:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px }
+    .menu-icon {
+      position: relative;
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--c-text);
+    }
+    .menu-icon::before,
+    .menu-icon::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: var(--c-text);
+      transition: transform 200ms ease, opacity 200ms ease;
+    }
+    .menu-icon::before { transform: translateY(-6px) }
+    .menu-icon::after { transform: translateY(6px) }
+    .menu-toggle[aria-expanded="true"] .menu-icon { background: transparent }
+    .menu-toggle[aria-expanded="true"] .menu-icon::before { transform: rotate(45deg) }
+    .menu-toggle[aria-expanded="true"] .menu-icon::after { transform: rotate(-45deg) }
+
+    .mobile-nav {
+      display: grid;
+      gap: 0.25rem;
+      background: rgba(251, 250, 249, 0.98);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 250ms ease;
+    }
+    .mobile-nav.open { max-height: 360px }
+    .mobile-nav a {
+      display: block;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: var(--c-text);
+      border-radius: 0;
+    }
+    .mobile-nav a:hover { background: rgba(0,0,0,0.04) }
+    .mobile-nav a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: -2px }
+
+    /* Responsive nav visibility */
+    @media (max-width: 767px) {
+      header nav { display: none }
+      .menu-toggle { display: inline-flex }
+    }
+    @media (min-width: 768px) {
+      .menu-toggle { display: none }
+      .mobile-nav { display: none !important }
+      header nav { display: block }
+    }
   </style>
 </head>
 <body>
-   Header 
   <header>
     <div class="container nav">
       <div class="brand" aria-label="Adara Designer Boutique">Adara Designer Boutique</div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
       <nav aria-label="Primary">
         <ul>
           <li><a href="#home">Home</a></li>
@@ -348,11 +422,29 @@
         </ul>
       </nav>
     </div>
+    <div id="mobile-nav" class="mobile-nav" role="dialog" aria-label="Mobile menu">
+      <a href="#home">Home</a>
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+      <a href="#contact">Book a Visit</a>
+    </div>
   </header>
 
   <main id="home">
-     Hero 
     <section class="hero">
+      <img
+        class="hero-img"
+        src="/placeholder.svg?height=1200&width=1800"
+        srcset="
+          /placeholder.svg?height=640&width=960&query=bridal%20fashion%20editorial 960w,
+          /placeholder.svg?height=800&width=1200&query=bridal%20fashion%20editorial 1200w,
+          /placeholder.svg?height=1200&width=1800&query=bridal%20fashion%20editorial 1800w
+        "
+        sizes="100vw"
+        alt=""
+        role="presentation"
+        fetchpriority="high"
+      />
       <div class="hero-inner container">
         <span class="kicker">Designer • Bridal • Tailoring</span>
         <h1>Elegance Tailored to You</h1>
@@ -364,7 +456,6 @@
       </div>
     </section>
 
-     Collections 
     <section id="collections" class="section">
       <div class="container">
         <div class="reveal">
@@ -374,73 +465,181 @@
         </div>
 
         <div class="grid" style="margin-top: 1.25rem">
-           1 
           <article class="card reveal delay-1">
-            <img src="/placeholder.svg?height=520&width=800" alt="Ivory lace bridal gown displayed on a mannequin in a studio" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=ivory%20lace%20bridal%20gown 480w,
+                /placeholder.svg?height=576&width=768&query=ivory%20lace%20bridal%20gown 768w,
+                /placeholder.svg?height=900&width=1200&query=ivory%20lace%20bridal%20gown 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Ivory lace bridal gown displayed on a mannequin in a studio"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Ivory Lace Gown</h3>
               <p class="card-desc">Hand-embroidered lace with a sculpted bodice and flowing train.</p>
             </div>
           </article>
-           2 
           <article class="card reveal delay-2">
-            <img src="/placeholder.svg?height=520&width=800" alt="Rose-gold designer lehenga with intricate zari work" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=rose-gold%20designer%20lehenga 480w,
+                /placeholder.svg?height=576&width=768&query=rose-gold%20designer%20lehenga 768w,
+                /placeholder.svg?height=900&width=1200&query=rose-gold%20designer%20lehenga 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Rose-gold designer lehenga with intricate zari work"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Rose-Gold Lehenga</h3>
               <p class="card-desc">Intricate zari craftsmanship with a modern pastel palette.</p>
             </div>
           </article>
-           3 
           <article class="card reveal delay-3">
-            <img src="/placeholder.svg?height=520&width=800" alt="Minimal silk evening gown on a rack in a boutique" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=minimal%20silk%20evening%20gown 480w,
+                /placeholder.svg?height=576&width=768&query=minimal%20silk%20evening%20gown 768w,
+                /placeholder.svg?height=900&width=1200&query=minimal%20silk%20evening%20gown 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Minimal silk evening gown on a rack in a boutique"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Silk Evening Gown</h3>
               <p class="card-desc">Minimal silhouette cut in fluid silk for timeless appeal.</p>
             </div>
           </article>
-           4 
           <article class="card reveal delay-1">
-            <img src="/placeholder.svg?height=520&width=800" alt="Tailored women's couture suit in neutral tones" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=tailored%20couture%20suit%20neutral 480w,
+                /placeholder.svg?height=576&width=768&query=tailored%20couture%20suit%20neutral 768w,
+                /placeholder.svg?height=900&width=1200&query=tailored%20couture%20suit%20neutral 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Tailored women's couture suit in neutral tones"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Couture Suit</h3>
               <p class="card-desc">Precision tailoring with feminine structure and soft drape.</p>
             </div>
           </article>
-           5 
           <article class="card reveal delay-2">
-            <img src="/placeholder.svg?height=520&width=800" alt="Pastel designer saree with delicate embroidery" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=pastel%20designer%20saree 480w,
+                /placeholder.svg?height=576&width=768&query=pastel%20designer%20saree 768w,
+                /placeholder.svg?height=900&width=1200&query=pastel%20designer%20saree 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Pastel designer saree with delicate embroidery"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Pastel Saree</h3>
               <p class="card-desc">Ethereal embroidery and lightweight movement for celebrations.</p>
             </div>
           </article>
-           6 
           <article class="card reveal delay-3">
-            <img src="/placeholder.svg?height=520&width=800" alt="Bridal blouse showing intricate handwork and bead detailing" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=bridal%20blouse%20handwork 480w,
+                /placeholder.svg?height=576&width=768&query=bridal%20blouse%20handwork 768w,
+                /placeholder.svg?height=900&width=1200&query=bridal%20blouse%20handwork 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Bridal blouse showing intricate handwork and bead detailing"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Handworked Blouse</h3>
               <p class="card-desc">Meticulous beadwork and couture finishing techniques.</p>
             </div>
           </article>
-           7 
           <article class="card reveal delay-1">
-            <img src="/placeholder.svg?height=520&width=800" alt="Neutral-toned designer dress displayed on a wooden hanger" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=minimal%20neutral%20designer%20dress 480w,
+                /placeholder.svg?height=576&width=768&query=minimal%20neutral%20designer%20dress 768w,
+                /placeholder.svg?height=900&width=1200&query=minimal%20neutral%20designer%20dress 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Neutral-toned designer dress displayed on a wooden hanger"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Minimal Day Dress</h3>
               <p class="card-desc">Clean lines and refined details for everyday elegance.</p>
             </div>
           </article>
-           8 
           <article class="card reveal delay-2">
-            <img src="/placeholder.svg?height=520&width=800" alt="Soft tulle bridal veil draped across a dress form" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=soft%20tulle%20bridal%20veil 480w,
+                /placeholder.svg?height=576&width=768&query=soft%20tulle%20bridal%20veil 768w,
+                /placeholder.svg?height=900&width=1200&query=soft%20tulle%20bridal%20veil 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Soft tulle bridal veil draped across a dress form"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Fine Tulle Veil</h3>
               <p class="card-desc">A whisper-light finish to complete your bridal look.</p>
             </div>
           </article>
-           9 
           <article class="card reveal delay-3">
-            <img src="/placeholder.svg?height=520&width=800" alt="Close-up of hand embroidery with delicate motifs" />
+            <img
+              src="/placeholder.svg?height=360&width=480"
+              srcset="
+                /placeholder.svg?height=360&width=480&query=hand%20embroidery%20delicate%20motifs 480w,
+                /placeholder.svg?height=576&width=768&query=hand%20embroidery%20delicate%20motifs 768w,
+                /placeholder.svg?height=900&width=1200&query=hand%20embroidery%20delicate%20motifs 1200w
+              "
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              alt="Close-up of hand embroidery with delicate motifs"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="900"
+            />
             <div class="card-body">
               <h3 class="card-title">Atelier Embroidery</h3>
               <p class="card-desc">Signature motifs handcrafted by our in-house artisans.</p>
@@ -450,11 +649,23 @@
       </div>
     </section>
 
-     About 
     <section id="about" class="section">
       <div class="container about">
         <div class="media reveal">
-          <img src="/placeholder.svg?height=700&width=1000" alt="Couture atelier showcasing craftsmanship and materials" />
+          <img
+            src="/placeholder.svg?height=480&width=720"
+            srcset="
+              /placeholder.svg?height=480&width=720&query=couture%20atelier%20craftsmanship 720w,
+              /placeholder.svg?height=640&width=960&query=couture%20atelier%20craftsmanship 960w,
+              /placeholder.svg?height=800&width=1200&query=couture%20atelier%20craftsmanship 1200w
+            "
+            sizes="(max-width: 1023px) 100vw, 50vw"
+            alt="Couture atelier showcasing craftsmanship and materials"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="800"
+          />
         </div>
         <div class="reveal delay-1">
           <span class="kicker">Our Story</span>
@@ -473,7 +684,6 @@
       </div>
     </section>
 
-     Contact 
     <section id="contact" class="section">
       <div class="container">
         <div class="reveal">
@@ -509,7 +719,21 @@
             <p><strong>Instagram:</strong> <a href="https://instagram.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline">@adaradesignerboutique</a></p>
             <p><strong>Address:</strong> 123 Adara Lane, Fashion District, Your City</p>
             <div style="margin: 1rem 0">
-              <img src="/placeholder.svg?height=240&width=800" alt="Adara boutique storefront exterior" style="width: 100%; height: 240px; object-fit: cover; border-radius: 0.6rem; border: 1px solid rgba(0,0,0,0.06)" />
+              <img
+                src="/placeholder.svg?height=180&width=480"
+                srcset="
+                  /placeholder.svg?height=180&width=480&query=boutique%20storefront%20exterior 480w,
+                  /placeholder.svg?height=240&width=800&query=boutique%20storefront%20exterior 800w,
+                  /placeholder.svg?height=360&width=1200&query=boutique%20storefront%20exterior 1200w
+                "
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                alt="Adara boutique storefront exterior"
+                style="width: 100%; height: auto; object-fit: cover; border-radius: 0.6rem; border: 1px solid rgba(0,0,0,0.06)"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="360"
+              />
             </div>
             <div class="cta-row">
               <a href="#contact" class="btn btn-primary">Book a Visit</a>
@@ -531,6 +755,45 @@
   <script>
     // Minimal progressive enhancement
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile navigation toggle
+    (function () {
+      const toggle = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('mobile-nav');
+      if (!toggle || !panel) return;
+
+      function closeMenu() {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+      }
+      function openMenu() {
+        panel.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close menu');
+      }
+
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        expanded ? closeMenu() : openMenu();
+      });
+
+      panel.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target && target.tagName === 'A') {
+          closeMenu();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      let mq = window.matchMedia('(min-width: 768px)');
+      mq.addEventListener ? mq.addEventListener('change', (e) => e.matches && closeMenu()) : window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) closeMenu();
+      });
+    })();
   </script>
 </body>
 </html>
