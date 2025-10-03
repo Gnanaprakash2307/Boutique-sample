@@ -4,139 +4,98 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Adara Designer Boutique</title>
-  <meta name="description" content="Adara Designer Boutique — designer clothing, bridal outfits, and bespoke tailoring. Elegant, minimalist, and personalized service." />
+  <meta name="description" content="Adara Designer Boutique — Designer clothing, bridal outfits, and bespoke tailoring." />
   <style>
     :root {
-      /* Color Tokens (3–5 total) */
-      --color-bg: #FAF7F5;         /* off-white neutral */
-      --color-surface: #FFFFFF;    /* white surface */
-      --color-text: #2A2A2A;       /* primary text */
-      --color-muted: #7A8C8F;      /* subtle slate for secondary text */
-      --color-accent: #B58A5C;     /* warm gold accent */
-      --color-brand: #E7D5CC;      /* soft blush brand */
+      /* 3-5 color palette (no gradients) */
+      --c-bg: #fbfaf9;        /* soft off-white */
+      --c-surface: #ffffff;   /* clean white */
+      --c-text: #1f2937;      /* slate-800 */
+      --c-muted: #6b7280;     /* slate-500 */
+      --c-accent: #c8a9a0;    /* dusty rose (brand) */
 
-      /* Radius & Shadows */
-      --radius: 10px;
+      --radius: 0.75rem;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-
-      /* Spacing scale */
-      --space-1: 0.25rem;
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-5: 1.25rem;
-      --space-6: 1.5rem;
-      --space-8: 2rem;
-      --space-10: 2.5rem;
-      --space-12: 3rem;
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 18px 40px rgba(0,0,0,0.10);
+      --container: 1200px;
     }
 
-    /* Base */
-    html { scroll-behavior: smooth; }
+    /* Base reset and typography */
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
     body {
       margin: 0;
-      background: var(--color-bg);
-      color: var(--color-text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     h1, h2, h3 {
-      font-family: Georgia, Cambria, "Times New Roman", serif;
-      line-height: 1.25;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
       letter-spacing: 0.2px;
-      margin: 0 0 var(--space-4);
+      line-height: 1.25;
+      margin: 0 0 0.5rem 0;
     }
-    p { margin: 0 0 var(--space-4); color: var(--color-text); }
+    p { margin: 0 0 1rem 0; color: var(--c-text) }
+    .muted { color: var(--c-muted) }
     .container {
       width: 100%;
-      max-width: 1120px;
-      padding: 0 var(--space-4);
+      max-width: var(--container);
       margin: 0 auto;
+      padding: 0 1rem;
     }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; height: auto; border-radius: calc(var(--radius) - 2px); }
-    figure { margin: 0; }
-    .muted { color: var(--color-muted); }
-
-    /* Accessibility helpers */
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
+    .section {
+      padding: 3rem 0;
     }
-    .skip-link:focus {
-      position: fixed;
-      left: var(--space-4);
-      top: var(--space-4);
-      width: auto;
-      height: auto;
-      background: var(--color-surface);
-      color: var(--color-text);
-      padding: var(--space-2) var(--space-4);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      z-index: 1000;
+    @media (min-width: 768px) {
+      .section { padding: 5rem 0 }
     }
 
-    /* Header */
-    .header {
+    /* Header / Nav */
+    header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(8px);
-      background: color-mix(in oklab, var(--color-bg) 80%, white);
-      border-bottom: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 5%);
+      backdrop-filter: saturate(180%) blur(6px);
+      background: rgba(251, 250, 249, 0.8);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--space-3) 0;
-      gap: var(--space-4);
+      gap: 1rem;
+      height: 64px;
     }
     .brand {
-      display: inline-flex;
-      align-items: baseline;
-      gap: var(--space-2);
-      font-size: 1.1rem;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: 1.125rem;
       font-weight: 600;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
     }
-    .brand-mark {
-      display: inline-grid;
-      place-items: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--color-brand);
-      color: var(--color-text);
-      font-family: Georgia, Cambria, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border: 1px solid color-mix(in oklab, var(--color-brand) 85%, #000 6%);
-    }
-    .nav-links {
+    nav ul {
       display: flex;
-      gap: var(--space-4);
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
       align-items: center;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
     }
-    .nav-links a {
-      color: var(--color-text);
-      padding: var(--space-2) var(--space-3);
+    nav a {
+      text-decoration: none;
+      color: var(--c-text);
+      font-size: 0.95rem;
+      padding: 0.5rem 0.75rem;
       border-radius: 999px;
-      border: 1px solid transparent;
+      transition: background-color 200ms ease, color 200ms ease, transform 150ms ease;
     }
-    .nav-links a:hover,
-    .nav-links a:focus-visible {
-      border-color: color-mix(in oklab, var(--color-muted) 30%, transparent);
-      background: color-mix(in oklab, var(--color-brand) 20%, transparent);
-      outline: none;
+    nav a:hover { background: rgba(0,0,0,0.04) }
+    nav a:focus-visible {
+      outline: 2px solid var(--c-accent);
+      outline-offset: 2px;
     }
 
     /* Buttons */
@@ -144,552 +103,434 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-2);
-      padding: 0.75rem 1.125rem;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
       border-radius: 999px;
       font-weight: 600;
-      letter-spacing: 0.3px;
-      border: 1px solid transparent;
-      cursor: pointer;
       text-decoration: none;
-      transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, color 120ms ease, border-color 120ms ease;
-      will-change: transform;
-    }
-    .btn:focus-visible { outline: 2px solid color-mix(in oklab, var(--color-accent) 60%, #fff); outline-offset: 2px; }
-    .btn-primary {
-      background: var(--color-accent);
-      color: #fff;
+      transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, color 150ms ease;
       box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    .btn-outline {
+    .btn-primary {
+      background: var(--c-accent);
+      color: #1f2123; /* ensure contrast on accent */
+      border-color: rgba(0,0,0,0.1);
+    }
+    .btn-ghost {
       background: transparent;
-      color: var(--color-text);
-      border-color: color-mix(in oklab, var(--color-accent) 40%, #000 0%);
+      color: var(--c-text);
     }
-    .btn-outline:hover {
-      background: color-mix(in oklab, var(--color-brand) 30%, transparent);
-      border-color: var(--color-accent);
-      color: var(--color-text);
-    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md) }
+    .btn:active { transform: translateY(0) }
+    .btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px }
 
     /* Hero */
     .hero {
       position: relative;
-      isolation: isolate;
-      overflow: clip;
-      border-bottom: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
-    }
-    .hero-wrap {
+      min-height: 72vh;
       display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-      padding: clamp(3rem, 6vw, 5rem) 0;
+      place-items: center;
+      overflow: clip;
+      background: #e9e3df;
     }
-    .hero-copy {
-      max-width: 720px;
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: 0.85rem;
-      color: var(--color-muted);
-      background: color-mix(in oklab, var(--color-brand) 45%, white 55%);
-      padding: var(--space-2) var(--space-3);
-      border-radius: 999px;
-      border: 1px solid color-mix(in oklab, var(--color-brand) 65%, #000 8%);
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin-top: var(--space-4);
-      margin-bottom: var(--space-4);
-      text-wrap: balance;
-    }
-    .hero p {
-      font-size: 1.05rem;
-      color: var(--color-muted);
-      margin-bottom: var(--space-6);
-    }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-
-    .hero-visual {
-      position: relative;
-      border-radius: var(--radius);
-      background:
-        radial-gradient(1200px 600px at 90% -20%, color-mix(in oklab, var(--color-brand) 50%, #fff) 0%, transparent 60%),
-        radial-gradient(800px 500px at -10% 90%, color-mix(in oklab, var(--color-accent) 12%, #fff) 0%, transparent 60%),
-        var(--color-surface);
-      min-height: 300px;
-      border: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-    }
-    .hero-visual::after {
-      /* Subtle pattern overlay */
+    .hero::before {
+      /* High-quality fashion/bridal background placeholder (replace with real image) */
       content: "";
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--color-brand) 30%, transparent) 1px, transparent 0);
-      background-size: 24px 24px;
-      opacity: 0.25;
-      pointer-events: none;
+      background-image: url("/placeholder.svg?height=1200&width=1800");
+      background-size: cover;
+      background-position: center;
+      filter: contrast(0.9) saturate(1) brightness(0.95);
+      opacity: 0.5;
     }
-    .hero-visual-inner {
+    .hero::after {
+      content: "";
       position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
-      padding: var(--space-6);
+      background: rgba(251, 250, 249, 0.66); /* soft veil */
     }
-    .hero-card {
-      background: color-mix(in oklab, var(--color-surface) 94%, var(--color-brand) 6%);
-      padding: var(--space-6);
-      border-radius: var(--radius);
-      border: 1px solid color-mix(in oklab, var(--color-brand) 60%, #000 8%);
-      box-shadow: var(--shadow-md);
+    .hero-inner {
+      position: relative;
+      z-index: 1;
       text-align: center;
-      max-width: 520px;
+      padding: 3rem 1rem;
+      animation: fadeUp 800ms ease both;
     }
-    .hero-card h3 { margin: 0 0 var(--space-2); font-size: 1.25rem; }
-    .hero-card p { margin: 0; color: var(--color-muted); }
-
-    /* Sections */
-    .section {
-      padding: clamp(2.5rem, 6vw, 4rem) 0;
+    .hero h1 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      margin-bottom: 0.5rem;
     }
-    .section-header {
-      display: grid;
-      gap: var(--space-2);
-      margin-bottom: var(--space-6);
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: var(--c-muted);
+      margin-bottom: 1.5rem;
     }
-    .section-header p { max-width: 60ch; }
+    .hero-cta {
+      display: inline-flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     /* Collections grid */
     .grid {
       display: grid;
-      gap: var(--space-4);
+      gap: 1rem;
     }
-    @media (min-width: 640px) { .grid-cols-2 { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 900px) { .grid-cols-3 { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr) } }
+    @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr) } }
 
     .card {
-      display: grid;
-      gap: var(--space-3);
-      background: var(--color-surface);
+      background: var(--c-surface);
+      border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius);
-      border: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
-      box-shadow: var(--shadow-sm);
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
     }
-    .card-body { padding: var(--space-4); }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(0,0,0,0.12) }
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-body {
+      padding: 1rem;
+    }
     .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0 0 var(--space-2);
+      font-size: 1.05rem;
+      margin: 0 0 0.25rem 0;
     }
-    .card-desc { font-size: 0.95rem; color: var(--color-muted); margin: 0; }
+    .card-desc {
+      color: var(--c-muted);
+      font-size: 0.95rem;
+    }
 
     /* About */
     .about {
       display: grid;
-      gap: var(--space-6);
+      gap: 1.5rem;
     }
-    @media (min-width: 900px) {
-      .about { grid-template-columns: 1.2fr 1fr; align-items: start; }
+    @media (min-width: 1024px) {
+      .about {
+        grid-template-columns: 1.1fr 1fr;
+        align-items: center;
+      }
     }
-    .about-box {
-      background: var(--color-surface);
-      border: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
+    .about .media {
       border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      padding: var(--space-6);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.06);
     }
-    .list {
+    .about .media img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .kicker {
+      display: inline-block;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      margin-bottom: 0.5rem;
+    }
+    .feature-list {
       display: grid;
-      gap: var(--space-3);
-      margin: var(--space-4) 0 0;
-      padding: 0;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .feature-list li {
       list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .list-item {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: var(--space-3);
-      align-items: start;
-    }
-    .tick {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: color-mix(in oklab, var(--color-accent) 20%, var(--color-brand));
-      border: 1px solid color-mix(in oklab, var(--color-accent) 50%, #000 8%);
-      display: grid; place-items: center;
-      color: var(--color-text);
-      font-size: 0.8rem;
-      line-height: 1;
+    .dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--c-accent);
+      flex: 0 0 8px;
     }
 
     /* Contact */
-    .contact {
+    form {
       display: grid;
-      gap: var(--space-6);
+      gap: 0.75rem;
     }
-    @media (min-width: 900px) {
-      .contact { grid-template-columns: 1fr 1fr; }
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
     }
-    .field {
-      display: grid;
-      gap: var(--space-2);
-      margin-bottom: var(--space-4);
-    }
-    label { font-weight: 600; }
     input, textarea {
-      font: inherit;
-      color: var(--color-text);
-      background: var(--color-surface);
-      border: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 8%);
-      border-radius: calc(var(--radius) - 2px);
-      padding: var(--space-3);
-      outline: none;
-      transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border-radius: 0.65rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--c-surface);
+      color: var(--c-text);
+      transition: border-color 150ms ease, box-shadow 150ms ease;
     }
-    input::placeholder, textarea::placeholder { color: color-mix(in oklab, var(--color-muted) 65%, #fff); }
+    input::placeholder, textarea::placeholder { color: #9aa1a9 }
     input:focus, textarea:focus {
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 25%, transparent);
-      background: color-mix(in oklab, var(--color-brand) 12%, var(--color-surface));
+      outline: none;
+      border-color: var(--c-accent);
+      box-shadow: 0 0 0 4px rgba(200,169,160,0.25);
+    }
+    .contact-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
     }
     .contact-card {
-      background: var(--color-surface);
-      border: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
+      background: var(--c-surface);
+      border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius);
+      padding: 1.25rem;
       box-shadow: var(--shadow-sm);
-      padding: var(--space-6);
-      height: fit-content;
     }
-    .contact-list {
-      display: grid;
-      gap: var(--space-3);
-      margin-top: var(--space-2);
-    }
-    .link {
-      color: var(--color-text);
-      border-bottom: 1px dashed color-mix(in oklab, var(--color-accent) 50%, #000 10%);
-      padding-bottom: 2px;
-    }
-    .link:hover {
-      color: var(--color-accent);
-      border-color: var(--color-accent);
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     /* Footer */
     footer {
-      padding: var(--space-8) 0;
-      border-top: 1px solid color-mix(in oklab, var(--color-bg) 70%, #000 6%);
-      color: var(--color-muted);
-      font-size: 0.95rem;
+      padding: 2rem 0;
+      color: var(--c-muted);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      background: var(--c-surface);
+      margin-top: 3rem;
     }
 
-    /* Utilities */
-    .center { text-align: center; }
-    .mt-2 { margin-top: var(--space-2); }
-    .mt-4 { margin-top: var(--space-4); }
-    .mt-6 { margin-top: var(--space-6); }
-    .mb-0 { margin-bottom: 0; }
-    .stack { display: grid; gap: var(--space-3); }
-    .cluster { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
-    .pill {
-      display: inline-flex; align-items: center;
-      padding: var(--space-1) var(--space-3);
-      background: color-mix(in oklab, var(--color-brand) 35%, white);
-      border: 1px solid color-mix(in oklab, var(--color-brand) 55%, #000 6%);
-      border-radius: 999px;
-      color: var(--color-text);
-      font-size: 0.85rem;
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px) }
+      to { opacity: 1; transform: translateY(0) }
+    }
+    .reveal {
+      animation: fadeUp 700ms ease both;
+    }
+    .delay-1 { animation-delay: 120ms }
+    .delay-2 { animation-delay: 200ms }
+    .delay-3 { animation-delay: 280ms }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto }
+      .hero-inner, .reveal { animation: none }
+      .btn:hover, .card:hover { transform: none }
     }
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
-
-  <header class="header" role="banner">
-    <div class="container nav" aria-label="Primary">
-      <a href="#" class="brand" aria-label="Adara Designer Boutique — Home">
-        <span class="brand-mark" aria-hidden="true">A</span>
-        <span>Adara Designer Boutique</span>
-      </a>
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#collections">Collections</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="btn btn-primary" style="padding: 0.5rem 0.9rem;">Book a Visit</a>
+   Header 
+  <header>
+    <div class="container nav">
+      <div class="brand" aria-label="Adara Designer Boutique">Adara Designer Boutique</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact" class="btn btn-primary" aria-label="Book a Visit">Book a Visit</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-     HERO 
-    <section id="home" class="hero" aria-labelledby="hero-title">
-      <div class="container hero-wrap">
-        <div class="hero-copy">
-          <span class="tag" aria-label="Boutique specialties">
-            Designer Clothing • Bridal Outfits • Tailoring
-          </span>
-          <h1 id="hero-title">Elegance, Tailored for You</h1>
-          <p>Discover refined designer wear, bespoke bridal looks, and expert tailoring crafted with meticulous attention to detail. At Adara, every piece tells your story—with grace, confidence, and timeless style.</p>
-          <div class="hero-ctas">
-            <a href="#collections" class="btn btn-primary">View Collection</a>
-            <a href="#contact" class="btn btn-outline">Book a Visit</a>
-          </div>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-visual-inner">
-            <div class="hero-card">
-              <h3>Bridal & Couture</h3>
-              <p>Soft pastels. Modern silhouettes. Impeccable fit.</p>
-              <div class="cluster mt-4">
-                <span class="pill">Sarees</span>
-                <span class="pill">Lehengas</span>
-                <span class="pill">Gowns</span>
-                <span class="pill">Menswear</span>
-              </div>
-            </div>
-          </div>
+  <main id="home">
+     Hero 
+    <section class="hero">
+      <div class="hero-inner container">
+        <span class="kicker">Designer • Bridal • Tailoring</span>
+        <h1>Elegance Tailored to You</h1>
+        <p>Handcrafted designer wear, bespoke bridal couture, and precision tailoring — curated for your finest moments.</p>
+        <div class="hero-cta">
+          <a href="#collections" class="btn btn-primary" aria-label="View Collection">View Collection</a>
+          <a href="#contact" class="btn btn-ghost" aria-label="Book a Visit">Book a Visit</a>
         </div>
       </div>
     </section>
 
-     COLLECTIONS 
-    <section id="collections" class="section" aria-labelledby="collections-title">
+     Collections 
+    <section id="collections" class="section">
       <div class="container">
-        <div class="section-header">
-          <h2 id="collections-title">Signature Collections</h2>
-          <p class="muted">A curated glimpse of our latest designer pieces. Each outfit balances contemporary design with classic charm.</p>
+        <div class="reveal">
+          <span class="kicker">Signature Looks</span>
+          <h2>Collections</h2>
+          <p class="muted">Discover our latest edits in designer clothing and bridal couture.</p>
         </div>
 
-        <div class="grid grid-cols-2 grid-cols-3" role="list">
-           Card 1 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Blush bridal lehenga with hand embroidery"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><defs/><rect width='100%' height='100%' fill='%23E7D5CC'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.35' stroke='%23b58a5c' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Blush Bridal Lehenga</text></svg>" />
-            </figure>
+        <div class="grid" style="margin-top: 1.25rem">
+           1 
+          <article class="card reveal delay-1">
+            <img src="/placeholder.svg?height=520&width=800" alt="Ivory lace bridal gown displayed on a mannequin in a studio" />
             <div class="card-body">
-              <h3 class="card-title">Blush Bridal Lehenga</h3>
-              <p class="card-desc">Hand-embroidered motifs on soft blush with modern, lightweight flair.</p>
+              <h3 class="card-title">Ivory Lace Gown</h3>
+              <p class="card-desc">Hand-embroidered lace with a sculpted bodice and flowing train.</p>
             </div>
           </article>
-
-           Card 2 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Ivory silk saree with delicate zari border"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23FAF7F5'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.55' stroke='%237A8C8F' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Ivory Silk Saree</text></svg>" />
-            </figure>
+           2 
+          <article class="card reveal delay-2">
+            <img src="/placeholder.svg?height=520&width=800" alt="Rose-gold designer lehenga with intricate zari work" />
             <div class="card-body">
-              <h3 class="card-title">Ivory Silk Saree</h3>
-              <p class="card-desc">Pure silk drape, delicate zari border, timelessly elegant.</p>
+              <h3 class="card-title">Rose-Gold Lehenga</h3>
+              <p class="card-desc">Intricate zari craftsmanship with a modern pastel palette.</p>
             </div>
           </article>
-
-           Card 3 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Pastel gown with layered tulle and floral applique"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23E7D5CC'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.35' stroke='%23b58a5c' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Pastel Layered Gown</text></svg>" />
-            </figure>
+           3 
+          <article class="card reveal delay-3">
+            <img src="/placeholder.svg?height=520&width=800" alt="Minimal silk evening gown on a rack in a boutique" />
             <div class="card-body">
-              <h3 class="card-title">Pastel Layered Gown</h3>
-              <p class="card-desc">Airy tulle layers with hand-appliqued florals for ethereal movement.</p>
+              <h3 class="card-title">Silk Evening Gown</h3>
+              <p class="card-desc">Minimal silhouette cut in fluid silk for timeless appeal.</p>
             </div>
           </article>
-
-           Card 4 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Embellished sherwani in soft champagne"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23FAF7F5'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.55' stroke='%237A8C8F' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Champagne Sherwani</text></svg>" />
-            </figure>
+           4 
+          <article class="card reveal delay-1">
+            <img src="/placeholder.svg?height=520&width=800" alt="Tailored women's couture suit in neutral tones" />
             <div class="card-body">
-              <h3 class="card-title">Champagne Sherwani</h3>
-              <p class="card-desc">Regal silhouettes, subtle embellishments, immaculate tailoring.</p>
+              <h3 class="card-title">Couture Suit</h3>
+              <p class="card-desc">Precision tailoring with feminine structure and soft drape.</p>
             </div>
           </article>
-
-           Card 5 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Sage green lehenga with mirrorwork details"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23E7D5CC'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.35' stroke='%23b58a5c' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Sage Mirrorwork Set</text></svg>" />
-            </figure>
+           5 
+          <article class="card reveal delay-2">
+            <img src="/placeholder.svg?height=520&width=800" alt="Pastel designer saree with delicate embroidery" />
             <div class="card-body">
-              <h3 class="card-title">Sage Mirrorwork Set</h3>
-              <p class="card-desc">Intricate mirrorwork meets soft sage tones for modern charm.</p>
+              <h3 class="card-title">Pastel Saree</h3>
+              <p class="card-desc">Ethereal embroidery and lightweight movement for celebrations.</p>
             </div>
           </article>
-
-           Card 6 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Minimalist evening gown in soft champagne"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23FAF7F5'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.55' stroke='%237A8C8F' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Minimal Evening Gown</text></svg>" />
-            </figure>
+           6 
+          <article class="card reveal delay-3">
+            <img src="/placeholder.svg?height=520&width=800" alt="Bridal blouse showing intricate handwork and bead detailing" />
             <div class="card-body">
-              <h3 class="card-title">Minimal Evening Gown</h3>
-              <p class="card-desc">Clean lines, fluid drape, and understated luxury.</p>
+              <h3 class="card-title">Handworked Blouse</h3>
+              <p class="card-desc">Meticulous beadwork and couture finishing techniques.</p>
             </div>
           </article>
-
-           Card 7 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Pastel saree with pearl border and contemporary blouse"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23E7D5CC'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.35' stroke='%23b58a5c' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Pearl Border Saree</text></svg>" />
-            </figure>
+           7 
+          <article class="card reveal delay-1">
+            <img src="/placeholder.svg?height=520&width=800" alt="Neutral-toned designer dress displayed on a wooden hanger" />
             <div class="card-body">
-              <h3 class="card-title">Pearl Border Saree</h3>
-              <p class="card-desc">Modern blouse pairing with a delicate pearl-trim border.</p>
+              <h3 class="card-title">Minimal Day Dress</h3>
+              <p class="card-desc">Clean lines and refined details for everyday elegance.</p>
             </div>
           </article>
-
-           Card 8 
-          <article class="card" role="listitem">
-            <figure>
-              <img alt="Classic tuxedo-inspired suit with couture fit"
-                src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='1125'><rect width='100%' height='100%' fill='%23FAF7F5'/><rect x='24' y='24' rx='16' ry='16' width='852' height='1077' fill='%23ffffff' fill-opacity='0.55' stroke='%237A8C8F' stroke-opacity='0.28'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Georgia, Cambria, Times New Roman, serif' font-size='32' fill='%232A2A2A'>Couture Suit Set</text></svg>" />
-            </figure>
+           8 
+          <article class="card reveal delay-2">
+            <img src="/placeholder.svg?height=520&width=800" alt="Soft tulle bridal veil draped across a dress form" />
             <div class="card-body">
-              <h3 class="card-title">Couture Suit Set</h3>
-              <p class="card-desc">A tailored classic with refined detailing and comfort.</p>
+              <h3 class="card-title">Fine Tulle Veil</h3>
+              <p class="card-desc">A whisper-light finish to complete your bridal look.</p>
             </div>
           </article>
-        </div>
-
-        <div class="center mt-6">
-          <a href="#contact" class="btn btn-outline">Enquire About a Look</a>
+           9 
+          <article class="card reveal delay-3">
+            <img src="/placeholder.svg?height=520&width=800" alt="Close-up of hand embroidery with delicate motifs" />
+            <div class="card-body">
+              <h3 class="card-title">Atelier Embroidery</h3>
+              <p class="card-desc">Signature motifs handcrafted by our in-house artisans.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-     ABOUT 
-    <section id="about" class="section" aria-labelledby="about-title">
+     About 
+    <section id="about" class="section">
       <div class="container about">
-        <div class="about-box">
-          <h2 id="about-title">About Adara</h2>
-          <p class="muted">Adara Designer Boutique is devoted to crafting exceptional designer outfits that celebrate your individuality. From bespoke bridal ensembles to thoughtful tailoring, our approach blends artistry with precision—ensuring a flawless fit and a truly personal experience.</p>
-
-          <ul class="list" aria-label="Highlights">
-            <li class="list-item">
-              <span class="tick" aria-hidden="true">✓</span>
-              <div>
-                <strong>Quality Craftsmanship</strong>
-                <p class="muted mb-0">Premium fabrics, intricate detailing, and refined finishing in every piece.</p>
-              </div>
-            </li>
-            <li class="list-item">
-              <span class="tick" aria-hidden="true">✓</span>
-              <div>
-                <strong>Unique Designs</strong>
-                <p class="muted mb-0">Modern silhouettes with classic charm for truly timeless style.</p>
-              </div>
-            </li>
-            <li class="list-item">
-              <span class="tick" aria-hidden="true">✓</span>
-              <div>
-                <strong>Personalized Service</strong>
-                <p class="muted mb-0">Consultations, custom fittings, and tailoring dedicated to your vision.</p>
-              </div>
-            </li>
-          </ul>
-
-          <div class="mt-6">
-            <a href="#contact" class="btn btn-primary">Book a Visit</a>
-          </div>
+        <div class="media reveal">
+          <img src="/placeholder.svg?height=700&width=1000" alt="Couture atelier showcasing craftsmanship and materials" />
         </div>
-
-        <div class="stack">
-          <div class="about-box">
-            <h3 class="mt-0">Our Philosophy</h3>
-            <p class="muted">We believe the perfect outfit should feel as effortless as it looks. With mindful design and thoughtful tailoring, we create pieces that move with you and last beyond the occasion.</p>
-          </div>
-          <div class="about-box">
-            <h3 class="mt-0">Services</h3>
-            <div class="cluster">
-              <span class="pill">Bridal Wear</span>
-              <span class="pill">Designer Sarees</span>
-              <span class="pill">Lehengas</span>
-              <span class="pill">Gowns</span>
-              <span class="pill">Menswear</span>
-              <span class="pill">Bespoke Tailoring</span>
-            </div>
+        <div class="reveal delay-1">
+          <span class="kicker">Our Story</span>
+          <h2>Distinctive Design, Uncompromising Quality</h2>
+          <p class="muted">At Adara Designer Boutique, we celebrate individuality through bespoke design. From contemporary designer wear to heirloom-worthy bridal couture, our work fuses meticulous craftsmanship with modern elegance.</p>
+          <ul class="feature-list" aria-label="Highlights">
+            <li><span class="dot" aria-hidden="true"></span> Unique, limited-edition designs tailored to you</li>
+            <li><span class="dot" aria-hidden="true"></span> Premium fabrics, artisanal handwork, couture finishing</li>
+            <li><span class="dot" aria-hidden="true"></span> Personalized fittings and attentive service</li>
+          </ul>
+          <div class="cta-row" style="margin-top: 1rem">
+            <a href="#collections" class="btn btn-ghost" aria-label="Explore our Collection">Explore Collection</a>
+            <a href="#contact" class="btn btn-primary" aria-label="Book a Visit at Adara">Book a Visit</a>
           </div>
         </div>
       </div>
     </section>
 
-     CONTACT 
-    <section id="contact" class="section" aria-labelledby="contact-title">
-      <div class="container contact">
-        <div>
-          <div class="section-header">
-            <h2 id="contact-title">Get in Touch</h2>
-            <p class="muted">Have a question, wish to book a fitting, or need a custom design? Send us a message—we’d love to help.</p>
-          </div>
-
-          <form action="#" method="post" aria-label="Contact form" novalidate>
-            <div class="field">
-              <label for="name">Full Name</label>
-              <input id="name" name="name" type="text" placeholder="Your name" required aria-required="true" />
-            </div>
-            <div class="field">
-              <label for="email">Email Address</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required aria-required="true" />
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="Tell us about your outfit or event" required aria-required="true"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
-          </form>
+     Contact 
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="reveal">
+          <span class="kicker">Visit & Enquire</span>
+          <h2>Contact</h2>
+          <p class="muted">We’d love to help you create something extraordinary.</p>
         </div>
-
-        <aside class="contact-card" aria-label="Boutique contact details">
-          <h3 class="mt-0">Contact Details</h3>
-          <div class="contact-list">
-            <div>
-              <strong>Phone</strong>
-              <div class="muted mt-2"><a class="link" href="tel:+10000000000" aria-label="Call Adara Boutique">+1 (000) 000-0000</a></div>
+        <div class="contact-grid" style="margin-top: 1.25rem">
+          <div class="contact-card reveal delay-1">
+            <form aria-label="Contact form" action="#" method="post">
+              <div>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Tell us about your outfit or appointment request..." required></textarea>
+              </div>
+              <div class="cta-row" style="margin-top: 0.5rem">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <a href="#collections" class="btn btn-ghost">View Collection</a>
+              </div>
+            </form>
+          </div>
+          <div class="contact-card reveal delay-2">
+            <h3 class="card-title" style="margin-bottom: 0.5rem">Boutique Details</h3>
+            <p class="muted" style="margin-bottom: 0.75rem">Adara Designer Boutique</p>
+            <p><strong>Phone:</strong> <a href="tel:+10000000000" style="color: inherit; text-decoration: underline">+1 (000) 000-0000</a></p>
+            <p><strong>Instagram:</strong> <a href="https://instagram.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline">@adaradesignerboutique</a></p>
+            <p><strong>Address:</strong> 123 Adara Lane, Fashion District, Your City</p>
+            <div style="margin: 1rem 0">
+              <img src="/placeholder.svg?height=240&width=800" alt="Adara boutique storefront exterior" style="width: 100%; height: 240px; object-fit: cover; border-radius: 0.6rem; border: 1px solid rgba(0,0,0,0.06)" />
             </div>
-            <div>
-              <strong>Instagram</strong>
-              <div class="muted mt-2"><a class="link" href="https://instagram.com/" target="_blank" rel="noopener">instagram.com/adaraboutique</a></div>
-            </div>
-            <div>
-              <strong>Address</strong>
-              <p class="muted mt-2 mb-0">Adara Designer Boutique<br/>123 Couture Lane, Suite 5<br/>Your City, Country</p>
-            </div>
-            <div class="mt-4">
-              <a href="#collections" class="btn btn-outline">View Collection</a>
+            <div class="cta-row">
+              <a href="#contact" class="btn btn-primary">Book a Visit</a>
+              <a href="#home" class="btn btn-ghost">Back to Top</a>
             </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
   </main>
 
   <footer role="contentinfo">
-    <div class="container">
-      <div class="cluster" style="justify-content: space-between;">
-        <div>© <span id="year"></span> Adara Designer Boutique</div>
-        <div class="muted">Elegance, Tailored for You</div>
-      </div>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+      <p>© <span id="year"></span> Adara Designer Boutique. All rights reserved.</p>
+      <p class="muted">Crafted with care for a premium boutique experience.</p>
     </div>
-     Non-essential, progressive enhancement: auto year (no external JS) 
-    <script>
-      (function(){try{document.getElementById('year').textContent=new Date().getFullYear();}catch(_){}})();
-    </script>
   </footer>
+
+  <script>
+    // Minimal progressive enhancement
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
